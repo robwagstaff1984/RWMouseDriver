@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "RWMouseDriver.h"
+#import "mouseDriver.h"
 
 @interface ViewController ()
 
@@ -17,14 +17,20 @@
             
 - (void)viewDidLoad {
     [super viewDidLoad];
-    RWMouseDriver* mouseDriver = [[RWMouseDriver alloc] init];
     
-    // Do any additional setup after loading the view, typically from a nib.
+    UInt8 inputBuffer[3];
+    setTestDataForInputBuffer(inputBuffer);
+    
+    BYTE* inputBufferPtr = &inputBuffer[0];
+    UInt16 length = 17;
+    handleReport(inputBufferPtr, length);
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+void setTestDataForInputBuffer(BYTE inputBuffer[3]) {
+    inputBuffer[0] = 0x52;
+    inputBuffer[1] = 0x52;
+    inputBuffer[2] = 0x3;
 }
+
 
 @end

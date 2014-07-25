@@ -13,8 +13,7 @@
 		360A5CCC1982045F004569AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 360A5CCA1982045F004569AE /* Main.storyboard */; };
 		360A5CCE1982045F004569AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 360A5CCD1982045F004569AE /* Images.xcassets */; };
 		360A5CDA1982045F004569AE /* RWMouseDriverTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 360A5CD91982045F004569AE /* RWMouseDriverTests.m */; };
-		360A5CE519820485004569AE /* RWMouseDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 360A5CE419820485004569AE /* RWMouseDriver.m */; };
-		360A5CE719820600004569AE /* RWMouseDriver2.c in Sources */ = {isa = PBXBuildFile; fileRef = 360A5CE619820600004569AE /* RWMouseDriver2.c */; };
+		360A5CE9198312D3004569AE /* mouseDriver.c in Sources */ = {isa = PBXBuildFile; fileRef = 360A5CE8198312D3004569AE /* mouseDriver.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,9 +39,8 @@
 		360A5CD31982045F004569AE /* RWMouseDriverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RWMouseDriverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		360A5CD81982045F004569AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		360A5CD91982045F004569AE /* RWMouseDriverTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RWMouseDriverTests.m; sourceTree = "<group>"; };
-		360A5CE319820485004569AE /* RWMouseDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWMouseDriver.h; sourceTree = "<group>"; };
-		360A5CE419820485004569AE /* RWMouseDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWMouseDriver.m; sourceTree = "<group>"; };
-		360A5CE619820600004569AE /* RWMouseDriver2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RWMouseDriver2.c; sourceTree = "<group>"; };
+		360A5CE8198312D3004569AE /* mouseDriver.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mouseDriver.c; sourceTree = "<group>"; };
+		360A5CEA19831387004569AE /* mouseDriver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mouseDriver.h; path = ../mouseDriver.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,9 +89,8 @@
 				360A5CCA1982045F004569AE /* Main.storyboard */,
 				360A5CCD1982045F004569AE /* Images.xcassets */,
 				360A5CC01982045F004569AE /* Supporting Files */,
-				360A5CE319820485004569AE /* RWMouseDriver.h */,
-				360A5CE419820485004569AE /* RWMouseDriver.m */,
-				360A5CE619820600004569AE /* RWMouseDriver2.c */,
+				360A5CEA19831387004569AE /* mouseDriver.h */,
+				360A5CE8198312D3004569AE /* mouseDriver.c */,
 			);
 			path = RWMouseDriver;
 			sourceTree = "<group>";
@@ -223,11 +220,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				360A5CE519820485004569AE /* RWMouseDriver.m in Sources */,
 				360A5CC91982045F004569AE /* ViewController.m in Sources */,
 				360A5CC61982045F004569AE /* AppDelegate.m in Sources */,
 				360A5CC31982045F004569AE /* main.m in Sources */,
-				360A5CE719820600004569AE /* RWMouseDriver2.c in Sources */,
+				360A5CE9198312D3004569AE /* mouseDriver.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
