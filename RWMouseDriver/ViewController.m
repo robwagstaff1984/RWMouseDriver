@@ -24,13 +24,24 @@
     BYTE* inputBufferPtr = &inputBuffer[0];
     UInt16 length = 17;
     handleReport(inputBufferPtr, length);
+    
+    setTimeStampRolloverTestDataForInputBuffer(inputBuffer);
+    handleReport(inputBufferPtr, length);
 }
 
 void setTestDataForInputBuffer(BYTE inputBuffer[3]) {
-    inputBuffer[0] = 0x52;
-    inputBuffer[1] = 0x52;
-    inputBuffer[2] = 0x3;
+    inputBuffer[0] = 0x11;
+    inputBuffer[1] = 0x55;
+    inputBuffer[2] = 0x2;
 }
+
+void setTimeStampRolloverTestDataForInputBuffer(BYTE inputBuffer[3]) {
+    inputBuffer[0] = 0x15;
+    inputBuffer[1] = 0;
+    inputBuffer[2] = 0;
+}
+
+
 
 
 @end

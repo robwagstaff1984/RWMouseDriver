@@ -36,6 +36,8 @@
 
 #define AND_BIT_MASK_ZERO_TO_ONE (1 << 2) - 1
 #define AND_BIT_MASK_TWO_TO_SEVEN (1 << 8) - (1 << 2);
+#define AND_BIT_MASK_ZERO_TO_SEVENTEEN (1 << 18) - 1
+#define AND_BIT_MASK_EIGHTEEN_TO_THIRTYONE (~0) - (1 << 18) + 1
 
 struct mouseDriverPacket
 {
@@ -54,12 +56,14 @@ struct mouseDriverPacket
 struct mouseDriverPacket createDefaultMouseDriverPacket();
 void extractMouseDriverPacketDataFromBuffer(UInt8 *buffer, struct mouseDriverPacket* mouseDriverPacket);
 void printMouseDriverPacket(struct mouseDriverPacket mouseDriverPacket);
+void update32BitTimestamp (UInt8 *buffer);
 
 
 void handleReport(UInt8 *buffer, UInt16 length) {
     struct mouseDriverPacket mouseDriverPacket = createDefaultMouseDriverPacket();
     extractMouseDriverPacketDataFromBuffer(buffer, &mouseDriverPacket);
     printMouseDriverPacket(mouseDriverPacket);
+    update32BitTimestamp(buffer);
 }
 
 BYTE getFirstTwoBitsForByte(BYTE byte) {
@@ -128,5 +132,34 @@ void printMouseDriverPacket(struct mouseDriverPacket mouseDriverPacket ) {
     printf("B5: %u\n", mouseDriverPacket.B5);
     printf("B6: %u\n", mouseDriverPacket.B6);
 }
+
+UInt32 latest18BitTimeStampFromBuffer(UInt8 *buffer) {
+    UInt32 leastSignificantTimestampByte = buffer[0];
+    UInt32 middleSignificantTimestampByte = buffer[1];
+    UInt32 mostSignificantTimestampByte = getFirstTwoBitsForByte(buffer[2]);
+    
+    middleSignificantTimestampByte = middleSignificantTimestampByte << 8;
+    mostSignificantTimestampByte = mostSignificantTimestampByte << 16;
+    
+    UInt32 latestTimestamp = leastSignificantTimestampByte | middleSignificantTimestampByte | mostSignificantTimestampByte;
+    return latestTimestamp;
+}
+
+void update32BitTimestamp (UInt8 *buffer) {
+    static UInt32 storedLargeTimestamp = 0;
+    
+    UInt32 latestTimestamp = latest18BitTimeStampFromBuffer(buffer);
+    UInt32 firstEighteenBitsOfStoredLargeTimstamp = storedLargeTimestamp & AND_BIT_MASK_ZERO_TO_SEVENTEEN;
+    
+    //if Timestamp rollover has occured;
+    if(latestTimestamp < firstEighteenBitsOfStoredLargeTimstamp) {
+        storedLargeTimestamp += 1 << 18;
+        storedLargeTimestamp = (storedLargeTimestamp & AND_BIT_MASK_EIGHTEEN_TO_THIRTYONE) + latestTimestamp;
+    } else {
+        storedLargeTimestamp = latestTimestamp;
+    }
+}
+
+
 
 
