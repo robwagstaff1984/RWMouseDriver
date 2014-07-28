@@ -59,6 +59,24 @@ void printMouseDriverPacket(struct mouseDriverPacket mouseDriverPacket);
 void update32BitTimestamp (UInt8 *buffer);
 
 
+/******************
+ ASSUMPTION: bits[7:0] refers to the first 8 bits in the buffer, bits[17:10] refers to the 11-18 bit of the buffer
+        B0: refers to the first byte of the output MouseDriverPacket
+        B1: refers to the second byte of the output MouseDriverPacket
+ 
+ IMPORTANT FOOT NOTE!: Upon final review of this coding challenge I believe I have misinterpreted the question. I now believe B0, B1, B2 etc referes to the bytes of the input data, but I assumed this was the format the data is to be stored in.
+    I incorrectly believed bits[7:0] was refering to the buffer instead of the first 8 bits of dX and dY. It's too late to recode this solution, but I believe the misinterpreted question I solved has very similar logic to the actual question. Please take this into account while reviewing my code.
+ 
+ How I would have solved the problem if I started again: 
+ 1) loop through buffer until length extracting each byte until I have all 7 bytes of info
+ 2) Use bitwise AND masks to extract the 4 parts of B4
+ 3) Use bitshifting to add the bits correctly for DX/DY and the timestamp as their data is stored partially in multiple bytes
+ 
+ 
+ 
+ 
+ This function will extract the bytes from buffer and extract the relevant mouse driver information using bitwise operations. The function will then add this data into the mouseDriverPacket bitfield at the required positions.
+ *****************/
 void handleReport(UInt8 *buffer, UInt16 length) {
     struct mouseDriverPacket mouseDriverPacket = createDefaultMouseDriverPacket();
     extractMouseDriverPacketDataFromBuffer(buffer, &mouseDriverPacket);
